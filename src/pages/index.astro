@@ -1,0 +1,52 @@
+---
+// Work page: Variant A (Editorial) from the prototype on branch
+// prototype/work-page. See .scratch/portfolio-site/work-page-prototype.md.
+import Base from "../layouts/Base.astro";
+import { person, projects } from "../data/site";
+const underline = "underline decoration-stone-400 underline-offset-4 hover:decoration-stone-900 dark:hover:decoration-stone-100";
+---
+<Base title={`${person.name} · ${person.headline}`} description={person.pitch} current="work">
+  <header class="pb-24 pt-20 sm:pt-32">
+    <p class="fade-in text-sm uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">{person.headline} · {person.location}</p>
+    <h1 class="fade-in mt-6 max-w-4xl font-serif text-5xl leading-[1.05] sm:text-7xl" style="--i:1">
+      {person.name} builds <em class="text-[#a0522d] dark:text-[#e0a37a]">full-stack apps</em> and the cloud they run on.
+    </h1>
+    <p class="fade-in mt-8 max-w-xl text-lg leading-relaxed text-stone-600 dark:text-stone-400" style="--i:2">{person.pitch}</p>
+    <div class="fade-in mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm" style="--i:3">
+      <a href={`mailto:${person.email}`} class="rounded-full bg-stone-900 px-5 py-2.5 text-[#f6f3ee] hover:bg-stone-700 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white">Email me</a>
+      <button data-copy-email={person.email} class={underline}><span data-copy-label>Copy email</span></button>
+      <a href={person.linkedin} class={underline}>LinkedIn</a>
+      <a href={person.github} class={underline}>GitHub</a>
+    </div>
+  </header>
+
+  <section class="pb-32" aria-labelledby="work-heading">
+    <h2 id="work-heading" class="text-sm uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">Selected work</h2>
+    <ul class="mt-6 border-t border-stone-300 dark:border-stone-700">
+      {projects.map((p, i) => (
+        <li class="group fade-in relative border-b border-stone-300 dark:border-stone-700" style={`--i:${i + 4}`}>
+          <a href={`/work/${p.slug}`} class="grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-7 sm:grid-cols-[3rem_1fr_9rem]">
+            <span class="font-serif text-lg text-stone-400" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <span>
+              <span class="block font-serif text-3xl transition-transform duration-300 group-hover:translate-x-2 sm:text-4xl">{p.title}</span>
+              <span class="mt-2 block text-sm text-stone-500 dark:text-stone-400">{p.kind} · {p.stack.slice(0, 3).join(", ")}</span>
+            </span>
+            <span class="col-start-2 mt-2 text-sm text-stone-500 sm:col-start-auto sm:mt-0 sm:text-right dark:text-stone-400">{p.period}</span>
+          </a>
+          {/* Hover preview: decorative, desktop pointers only. */}
+          <div aria-hidden="true" class="pointer-events-none absolute right-40 top-1/2 z-10 hidden w-72 -translate-y-1/2 rounded-xl bg-white p-4 opacity-0 shadow-2xl transition-opacity duration-200 [@media(hover:hover)]:lg:block group-hover:opacity-100 dark:bg-stone-800">
+            <div class="flex items-center gap-1.5 rounded-lg bg-stone-100 p-3 dark:bg-stone-900">
+              {p.flow.map((node, j) => (
+                <>
+                  {j > 0 && <span class="text-stone-400">→</span>}
+                  <span class="rounded border border-stone-300 bg-white px-1.5 py-1 text-[10px] leading-tight dark:border-stone-600 dark:bg-stone-800">{node}</span>
+                </>
+              ))}
+            </div>
+            <p class="mt-3 text-sm leading-snug text-stone-600 dark:text-stone-300">{p.summary}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

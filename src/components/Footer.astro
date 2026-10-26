@@ -1,0 +1,12 @@
+---
+import { person } from "../data/site";
+const link = "hover:text-stone-900 dark:hover:text-stone-100";
+---
+<footer class="flex flex-col gap-4 border-t border-stone-300 py-10 text-sm text-stone-500 sm:flex-row sm:justify-between dark:border-stone-700 dark:text-stone-400">
+  <span>© {new Date().getFullYear()} {person.name}</span>
+  <span class="flex gap-6">
+    <a href={`mailto:${person.email}`} class={link}>Email</a>
+    <a href={person.linkedin} class={link}>LinkedIn</a>
+    <a href={person.github} class={link}>GitHub</a>
+  </span>
+</footer>

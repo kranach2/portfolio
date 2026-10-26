@@ -1,0 +1,19 @@
+---
+import { person } from "../data/site";
+
+interface Props {
+  current: "work" | "info";
+}
+const { current } = Astro.props;
+const link = "hover:text-stone-900 dark:hover:text-stone-100";
+const active = "text-stone-900 dark:text-stone-100";
+---
+<nav class="flex items-center justify-between py-8 text-sm">
+  <a href="/" class="font-medium">{person.name}</a>
+  <div class="flex items-center gap-6 text-stone-600 dark:text-stone-400">
+    <a href="/" class={current === "work" ? active : link} aria-current={current === "work" ? "page" : undefined}>Work</a>
+    <a href="/info" class={current === "info" ? active : link} aria-current={current === "info" ? "page" : undefined}>Info</a>
+    <a href={person.resume} class={link}>Résumé ↗</a>
+    <button data-theme-toggle aria-label="Toggle theme" class={link}>◐</button>
+  </div>
+</nav>
