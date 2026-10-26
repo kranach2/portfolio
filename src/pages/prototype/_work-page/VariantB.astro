@@ -1,0 +1,84 @@
+---
+// Variant B, Dark technical: monospace accents, a subtle grid background,
+// Projects as a table with stack tags. Dark-first, with a light theme.
+import { person, projects, featuredCertifications } from "./data";
+---
+<div
+  class="min-h-screen bg-zinc-50 text-zinc-800 [background-image:linear-gradient(to_right,rgb(0_0_0/0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgb(0_0_0/0.05)_1px,transparent_1px)] [background-size:32px_32px] dark:bg-[#0b0d10] dark:text-zinc-300 dark:[background-image:linear-gradient(to_right,rgb(255_255_255/0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.04)_1px,transparent_1px)]"
+>
+  <div class="mx-auto max-w-6xl px-6">
+    <nav class="flex items-center justify-between border-b border-zinc-300 py-4 font-mono text-xs dark:border-zinc-800">
+      <a href="#" class="text-emerald-700 dark:text-emerald-400">~/kishor</a>
+      <div class="flex items-center gap-5">
+        <a href="#" class="text-zinc-950 dark:text-white">./work</a>
+        <a href="#" class="hover:text-zinc-950 dark:hover:text-white">./info</a>
+        <a href={person.resume} class="hover:text-zinc-950 dark:hover:text-white">resume.pdf</a>
+        <button data-theme-toggle aria-label="Toggle theme" class="rounded border border-zinc-300 px-2 py-0.5 hover:text-zinc-950 dark:border-zinc-700 dark:hover:text-white">theme</button>
+      </div>
+    </nav>
+
+    <header class="grid gap-10 py-16 sm:py-24 lg:grid-cols-[1fr_20rem]">
+      <div>
+        <p class="fade-in font-mono text-sm text-emerald-700 dark:text-emerald-400">$ whoami</p>
+        <h1 class="fade-in mt-3 text-4xl font-semibold tracking-tight text-zinc-950 sm:text-6xl dark:text-white" style="--i:1">{person.name}</h1>
+        <p class="fade-in mt-2 font-mono text-lg text-zinc-500" style="--i:2">{person.headline} <span class="text-zinc-400 dark:text-zinc-600">// {person.location}</span></p>
+        <p class="fade-in mt-6 max-w-2xl text-lg leading-relaxed" style="--i:3">{person.pitch}</p>
+        <div class="fade-in mt-8 flex flex-wrap gap-3 font-mono text-sm" style="--i:4">
+          <a href={`mailto:${person.email}`} class="rounded-md bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-500 dark:bg-emerald-500 dark:text-black dark:hover:bg-emerald-400">contact →</a>
+          <button data-copy-email={person.email} class="rounded-md border border-zinc-300 px-4 py-2 hover:border-zinc-500 dark:border-zinc-700 dark:hover:border-zinc-500"><span data-copy-label>{person.email}</span> ⧉</button>
+          <a href={person.linkedin} class="rounded-md border border-zinc-300 px-4 py-2 hover:border-zinc-500 dark:border-zinc-700 dark:hover:border-zinc-500">linkedin</a>
+          <a href={person.github} class="rounded-md border border-zinc-300 px-4 py-2 hover:border-zinc-500 dark:border-zinc-700 dark:hover:border-zinc-500">github</a>
+        </div>
+      </div>
+      <aside class="fade-in self-end rounded-lg border border-zinc-300 bg-white/70 p-4 font-mono text-xs backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/60" style="--i:5">
+        <p class="text-zinc-500">## certified</p>
+        <ul class="mt-2 space-y-1.5">
+          {featuredCertifications.map((c) => (
+            <li class="flex justify-between gap-3"><span>{c.name.replace(" Associate", "")}</span><span class="text-zinc-500">{c.year}</span></li>
+          ))}
+        </ul>
+      </aside>
+    </header>
+
+    <section class="pb-28">
+      <div class="flex items-baseline justify-between font-mono text-xs text-zinc-500">
+        <h2>## projects <span class="text-zinc-400 dark:text-zinc-600">({projects.length})</span></h2>
+        <span class="hidden sm:inline">sorted by order</span>
+      </div>
+      <div class="mt-3 overflow-hidden rounded-lg border border-zinc-300 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/70">
+        <table class="w-full text-left text-sm">
+          <thead class="hidden border-b border-zinc-300 font-mono text-[11px] uppercase tracking-wider text-zinc-500 md:table-header-group dark:border-zinc-800">
+            <tr><th class="px-4 py-3 font-normal">#</th><th class="px-4 py-3 font-normal">project</th><th class="px-4 py-3 font-normal">stack</th><th class="px-4 py-3 font-normal">type</th><th class="px-4 py-3"></th></tr>
+          </thead>
+          <tbody>
+            {projects.map((p, i) => (
+              <tr class="fade-in group block border-b border-zinc-200 last:border-0 hover:bg-emerald-50 md:table-row dark:border-zinc-800/80 dark:hover:bg-emerald-500/5" style={`--i:${i + 6}`}>
+                <td class="hidden px-4 py-4 align-top font-mono text-zinc-400 md:table-cell">{String(i + 1).padStart(2, "0")}</td>
+                <td class="block px-4 pt-4 align-top md:table-cell md:py-4">
+                  <a href={`#${p.slug}`} class="font-medium text-zinc-950 group-hover:text-emerald-700 dark:text-white dark:group-hover:text-emerald-400">{p.title}</a>
+                  <p class="mt-1 max-w-md text-zinc-500">{p.summary}</p>
+                </td>
+                <td class="block px-4 pt-3 align-top md:table-cell md:py-4">
+                  <ul class="flex max-w-xs flex-wrap gap-1.5">
+                    {p.stack.map((s) => <li class="rounded border border-zinc-300 bg-zinc-100 px-1.5 py-0.5 font-mono text-[11px] dark:border-zinc-700 dark:bg-zinc-900">{s}</li>)}
+                  </ul>
+                </td>
+                <td class="block px-4 pb-4 pt-3 align-top font-mono text-xs text-zinc-500 md:table-cell md:py-4 md:whitespace-nowrap">{p.kind.toLowerCase()}<br class="hidden md:block" /><span class="md:hidden"> · </span>{p.period}</td>
+                <td class="hidden px-4 py-4 text-right align-top font-mono text-zinc-400 group-hover:text-emerald-600 md:table-cell">→</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="flex flex-col gap-3 border-t border-zinc-300 py-8 font-mono text-xs text-zinc-500 sm:flex-row sm:justify-between dark:border-zinc-800">
+      <span>© 2026 {person.name.toLowerCase().replaceAll(" ", "-")}</span>
+      <span class="flex gap-5">
+        <a href={`mailto:${person.email}`} class="hover:text-zinc-950 dark:hover:text-white">email</a>
+        <a href={person.linkedin} class="hover:text-zinc-950 dark:hover:text-white">linkedin</a>
+        <a href={person.github} class="hover:text-zinc-950 dark:hover:text-white">github</a>
+      </span>
+    </footer>
+  </div>
+</div>

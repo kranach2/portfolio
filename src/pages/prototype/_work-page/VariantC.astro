@@ -1,0 +1,105 @@
+---
+// Variant C, Bento: rounded tiles of different sizes mixing the intro,
+// Projects, Featured certifications, a short about tile and contact.
+import { person, about, projects, featuredCertifications } from "./data";
+const [lead, ...rest] = projects;
+const tile = "fade-in rounded-3xl p-6 sm:p-7";
+const surface = "bg-white ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10";
+---
+<div class="min-h-screen bg-neutral-100 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <nav class="flex items-center justify-between py-6 text-sm">
+      <a href="#" class="font-semibold">Kishor R.C.</a>
+      <div class="flex items-center gap-1 rounded-full bg-white p-1 ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10">
+        <a href="#" class="rounded-full bg-neutral-900 px-4 py-1.5 text-white dark:bg-white dark:text-neutral-900">Work</a>
+        <a href="#" class="rounded-full px-4 py-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-800">Info</a>
+        <a href={person.resume} class="rounded-full px-4 py-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-800">Résumé</a>
+        <button data-theme-toggle aria-label="Toggle theme" class="rounded-full px-3 py-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-800">◐</button>
+      </div>
+    </nav>
+
+    <main class="grid auto-rows-[minmax(11rem,auto)] grid-cols-1 gap-4 pb-28 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Intro: 2x2 */}
+      <section class={`${tile} ${surface} flex flex-col justify-between sm:col-span-2 lg:row-span-2`}>
+        <div>
+          <span class="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">
+            <span class="size-1.5 rounded-full bg-emerald-500"></span>{person.headline}
+          </span>
+          <h1 class="mt-6 text-4xl font-semibold tracking-tight sm:text-5xl">{person.name}</h1>
+          <p class="mt-4 max-w-md text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">{person.pitch}</p>
+        </div>
+        <div class="mt-8 flex flex-wrap gap-2 text-sm">
+          <a href={`mailto:${person.email}`} class="rounded-full bg-neutral-900 px-5 py-2.5 font-medium text-white hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200">Get in touch</a>
+          <button data-copy-email={person.email} class="rounded-full px-5 py-2.5 ring-1 ring-neutral-300 hover:bg-neutral-100 dark:ring-neutral-700 dark:hover:bg-neutral-800"><span data-copy-label>Copy email</span></button>
+        </div>
+      </section>
+
+      {/* Lead project: 2 wide */}
+      <a href={`#${lead.slug}`} class={`${tile} group flex flex-col justify-between bg-[#1f3a5f] text-white sm:col-span-2 dark:bg-[#1c3350]`} style="--i:1">
+        <div class="flex items-start justify-between">
+          <span class="text-xs uppercase tracking-wider text-white/60">{lead.kind}</span>
+          <span class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+        </div>
+        <div>
+          <h2 class="text-2xl font-semibold">{lead.title}</h2>
+          <p class="mt-2 max-w-md text-sm text-white/75">{lead.summary}</p>
+          <p class="mt-4 text-xs text-white/60">{lead.stack.join(" · ")}</p>
+        </div>
+      </a>
+
+      {/* About: 1x1 */}
+      <section class={`${tile} ${surface}`} style="--i:2">
+        <h2 class="text-xs uppercase tracking-wider text-neutral-500">About</h2>
+        <p class="mt-3 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">{about}</p>
+        <p class="mt-3 text-sm text-neutral-500">📍 {person.location}</p>
+      </section>
+
+      {/* Contact: 1x1 */}
+      <section class={`${tile} ${surface} flex flex-col justify-between`} style="--i:3">
+        <h2 class="text-xs uppercase tracking-wider text-neutral-500">Elsewhere</h2>
+        <ul class="mt-3 space-y-2 text-sm font-medium">
+          <li><a href={person.linkedin} class="flex justify-between hover:text-emerald-600">LinkedIn <span>↗</span></a></li>
+          <li><a href={person.github} class="flex justify-between hover:text-emerald-600">GitHub <span>↗</span></a></li>
+          <li><a href={person.resume} class="flex justify-between hover:text-emerald-600">Résumé (PDF) <span>↓</span></a></li>
+        </ul>
+      </section>
+
+      {/* Remaining projects: 1x1 each, then certifications 2 wide */}
+      {rest.map((p, i) => (
+        <a href={`#${p.slug}`} class={`${tile} ${surface} group flex flex-col justify-between hover:ring-neutral-400 dark:hover:ring-neutral-600 ${i === 0 ? "lg:row-span-2" : ""} ${i === rest.length - 1 ? "lg:col-span-2" : ""}`} style={`--i:${i + 4}`}>
+          <div class="flex items-start justify-between text-xs text-neutral-500">
+            <span class="uppercase tracking-wider">{p.kind}</span><span>↗</span>
+          </div>
+          <div>
+            <h2 class="text-lg font-semibold leading-snug">{p.title}</h2>
+            {i === 0 && <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{p.summary}</p>}
+            <ul class="mt-3 flex flex-wrap gap-1.5">
+              {p.stack.slice(0, i === 0 ? 5 : 3).map((s) => <li class="rounded-full bg-neutral-100 px-2 py-0.5 text-[11px] text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400">{s}</li>)}
+            </ul>
+          </div>
+        </a>
+      ))}
+
+      <section class={`${tile} bg-[#f3e8d8] text-[#3d2b16] sm:col-span-2 lg:col-span-3 dark:bg-[#2a2118] dark:text-[#f0dcc0]`} style="--i:7">
+        <h2 class="text-xs uppercase tracking-wider opacity-70">Featured certifications</h2>
+        <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {featuredCertifications.map((c) => (
+            <li class="rounded-2xl bg-white/60 p-3 dark:bg-white/5">
+              <p class="text-[11px] opacity-70">{c.issuer} · {c.year}</p>
+              <p class="mt-0.5 text-sm font-medium leading-snug">{c.name}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </main>
+
+    <footer class="flex flex-col gap-3 border-t border-neutral-200 py-8 text-sm text-neutral-500 sm:flex-row sm:justify-between dark:border-neutral-800">
+      <span>© 2026 {person.name}</span>
+      <span class="flex gap-5">
+        <a href={`mailto:${person.email}`} class="hover:text-neutral-900 dark:hover:text-white">Email</a>
+        <a href={person.linkedin} class="hover:text-neutral-900 dark:hover:text-white">LinkedIn</a>
+        <a href={person.github} class="hover:text-neutral-900 dark:hover:text-white">GitHub</a>
+      </span>
+    </footer>
+  </div>
+</div>

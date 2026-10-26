@@ -1,0 +1,72 @@
+---
+// PROTOTYPE: three variants of the Work page, switchable via ?variant=A|B|C,
+// on a throwaway route. Pick a winner, then fold it into src/pages/index.astro
+// and move this route to the prototype/work-page branch.
+import "../../styles/global.css";
+import PrototypeSwitcher from "../../components/PrototypeSwitcher.astro";
+import VariantA from "./_work-page/VariantA.astro";
+import VariantB from "./_work-page/VariantB.astro";
+import VariantC from "./_work-page/VariantC.astro";
+
+const variants = [
+  { key: "A", name: "Editorial" },
+  { key: "B", name: "Dark technical" },
+  { key: "C", name: "Bento" },
+];
+---
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Work · Kishor Rana Chhetri (prototype)</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <script is:inline define:vars={{ keys: variants.map((v) => v.key) }}>
+      // Before paint: pick the variant and theme so neither flashes.
+      const v = new URLSearchParams(location.search).get("variant")?.toUpperCase();
+      document.documentElement.dataset.variant = keys.includes(v) ? v : keys[0];
+      let stored = null;
+      try { stored = localStorage.getItem("theme"); } catch {}
+      const dark = stored ? stored === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", dark);
+    </script>
+    <style is:global>
+      [data-variant-root] { display: none; }
+      html[data-variant="A"] [data-variant-root="A"],
+      html[data-variant="B"] [data-variant-root="B"],
+      html[data-variant="C"] [data-variant-root="C"] { display: block; }
+    </style>
+  </head>
+  <body>
+    <div data-variant-root="A"><VariantA /></div>
+    <div data-variant-root="B"><VariantB /></div>
+    <div data-variant-root="C"><VariantC /></div>
+    <PrototypeSwitcher variants={variants} />
+
+    <script>
+      // Theme toggle: remembers the choice; otherwise follows the system.
+      document.querySelectorAll("[data-theme-toggle]").forEach((b) =>
+        b.addEventListener("click", () => {
+          const dark = document.documentElement.classList.toggle("dark");
+          try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch {}
+        }),
+      );
+      // Copy-email buttons.
+      document.querySelectorAll<HTMLButtonElement>("[data-copy-email]").forEach((b) =>
+        b.addEventListener("click", async () => {
+          await navigator.clipboard.writeText(b.dataset.copyEmail!);
+          const label = b.querySelector("[data-copy-label]") ?? b;
+          const prev = label.textContent;
+          label.textContent = "Copied";
+          setTimeout(() => (label.textContent = prev), 1500);
+        }),
+      );
+    </script>
+  </body>
+</html>

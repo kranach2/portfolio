@@ -1,0 +1,57 @@
+---
+// PROTOTYPE switcher: a floating bar that cycles ?variant= keys. Dev only.
+interface Props {
+  variants: { key: string; name: string }[];
+}
+const { variants } = Astro.props;
+const show = import.meta.env.DEV;
+---
+{show && (
+  <div
+    id="prototype-switcher"
+    data-variants={JSON.stringify(variants)}
+    class="fixed bottom-4 left-1/2 z-[100] flex -translate-x-1/2 items-center gap-1 rounded-full bg-fuchsia-600 p-1 font-mono text-xs text-white shadow-xl ring-2 ring-white/70"
+  >
+    <button data-step="-1" class="rounded-full px-3 py-1.5 hover:bg-white/20" aria-label="Previous variant">←</button>
+    <span data-label class="min-w-44 text-center">…</span>
+    <button data-step="1" class="rounded-full px-3 py-1.5 hover:bg-white/20" aria-label="Next variant">→</button>
+    <span class="mx-1 h-4 w-px bg-white/40"></span>
+    <button data-theme-toggle class="rounded-full px-3 py-1.5 hover:bg-white/20" aria-label="Toggle theme">◐</button>
+  </div>
+)}
+
+<script>
+  const bar = document.getElementById("prototype-switcher");
+  if (bar) {
+    const variants: { key: string; name: string }[] = JSON.parse(bar.dataset.variants!);
+    const label = bar.querySelector<HTMLElement>("[data-label]")!;
+    const current = () => document.documentElement.dataset.variant ?? variants[0].key;
+
+    const render = () => {
+      const v = variants.find((x) => x.key === current()) ?? variants[0];
+      label.textContent = `${v.key} (${v.name})`;
+    };
+
+    const step = (dir: number) => {
+      const i = variants.findIndex((x) => x.key === current());
+      const next = variants[(i + dir + variants.length) % variants.length].key;
+      document.documentElement.dataset.variant = next;
+      const url = new URL(location.href);
+      url.searchParams.set("variant", next);
+      history.replaceState(null, "", url);
+      render();
+      console.info("[prototype] variant", next);
+    };
+
+    bar.querySelectorAll<HTMLButtonElement>("[data-step]").forEach((b) =>
+      b.addEventListener("click", () => step(Number(b.dataset.step))),
+    );
+    document.addEventListener("keydown", (e) => {
+      const t = e.target as HTMLElement;
+      if (t.closest("input, textarea, [contenteditable]")) return;
+      if (e.key === "ArrowLeft") step(-1);
+      if (e.key === "ArrowRight") step(1);
+    });
+    render();
+  }
+</script>
