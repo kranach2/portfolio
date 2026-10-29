@@ -28,10 +28,6 @@ _Avoid_: Professional project, commercial work
 A Project Kishor built independently, with code and a demo link where available.
 _Avoid_: Side project, hobby project
 
-**Placeholder project**:
-An interim Project drawn from the résumé, shown only until Kishor supplies a real one to replace it.
-_Avoid_: Filler, dummy project, sample project
-
 **Draft**:
 A Project that exists in the content but is hidden from the site until it is ready.
 _Avoid_: Unpublished, hidden, WIP
