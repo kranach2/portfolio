@@ -3,7 +3,7 @@ import { getProfile } from "../lib/content";
 const profile = await getProfile();
 
 interface Props {
-  current: "work" | "info";
+  current?: "work" | "info";
 }
 const { current } = Astro.props;
 const link = "hover:text-stone-900 dark:hover:text-stone-100";

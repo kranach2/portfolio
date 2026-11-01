@@ -1,0 +1,13 @@
+---
+// Not-found page for unknown routes, including Drafts' Project pages.
+// Azure serves it via public/staticwebapp.config.json.
+import Base from "../layouts/Base.astro";
+---
+<Base title="Page not found" description="There is no page at this address.">
+  <header class="pb-32 pt-20 sm:pt-32">
+    <p class="fade-in text-sm uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">404</p>
+    <h1 class="fade-in mt-6 font-serif text-5xl leading-[1.05] sm:text-7xl" style="--i:1">Page not found</h1>
+    <p class="fade-in mt-8 max-w-xl text-lg leading-relaxed text-stone-600 dark:text-stone-400" style="--i:2">There is no page at this address.</p>
+    <a href="/" class="fade-in mt-10 inline-block rounded-full bg-stone-900 px-5 py-2.5 text-sm text-[#f6f3ee] hover:bg-stone-700 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white" style="--i:3">← Back to the Work page</a>
+  </header>
+</Base>
