@@ -1,38 +1,7 @@
 import { expect, test } from "@playwright/test";
+import { publishedProjects } from "./published-projects";
 
-// Every published Project, with its kind and full stack, from src/content/projects.
-const projects = [
-  {
-    path: "/work/fisheries-industry-body-platform",
-    title: "Fisheries industry body platform",
-    kind: "Client work",
-    stack: [
-      "Power Pages", "Dataverse", "Azure Functions", "Logic Apps", "Dynamics 365", "Power Automate",
-      "Azure AD B2C", "Next.js", "TypeScript", "Prisma", "PostgreSQL", "C#", "JavaScript", "jQuery",
-      "Bootstrap", "Moodle",
-    ],
-  },
-  {
-    path: "/work/corporate-website",
-    title: "Corporate website",
-    kind: "Client work",
-    stack: ["Angular", "Kontent.ai", ".NET", "JavaScript", "CSS"],
-  },
-  {
-    path: "/work/mine-execution-control-system",
-    title: "Mine execution control system",
-    kind: "Client work",
-    stack: ["C#", "ASP.NET Core", "Vue.js", "xUnit", "Microservices"],
-  },
-  {
-    path: "/work/council-website",
-    title: "Council website",
-    kind: "Client work",
-    stack: ["Next.js", "Material UI", "Contentful", "AWS Cognito", "AWS Amplify"],
-  },
-];
-
-for (const { path, title, kind, stack } of projects) {
+for (const { path, title, kind, stack } of publishedProjects) {
   test(`${title} page shows its title, kind and full stack`, async ({ page }) => {
     await page.goto(path);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
@@ -49,7 +18,7 @@ for (const { path, title, kind, stack } of projects) {
 
   test(`${title} page links back to the Work page`, async ({ page }) => {
     await page.goto(path);
-    await page.getByRole("link", { name: "Back to all work" }).click();
+    await page.getByRole("link", { name: "Back to the Work page" }).click();
     await expect(page).toHaveURL("/");
   });
 }

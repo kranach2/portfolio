@@ -12,7 +12,10 @@ export async function getStaticPaths() {
   return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
 }
 
-const { project } = Astro.props as { project: Project };
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
 const { title, kind, summary, stack, diagram, links } = project.data;
 const profile = await getProfile();
 const { Content } = await render(project);
@@ -36,7 +39,7 @@ const prose = [
         <li class="rounded-full border border-stone-300 px-3 py-1 text-stone-600 dark:border-stone-700 dark:text-stone-300">{item}</li>
       ))}
     </ul>
-    {links && (
+    {(links?.code || links?.demo) && (
       <p class="fade-in mt-8 flex gap-6 text-sm" style="--i:3">
         {links.code && <a href={links.code} class={underline}>Code ↗</a>}
         {links.demo && <a href={links.demo} class={underline}>Demo ↗</a>}
@@ -55,8 +58,8 @@ const prose = [
     </section>
   )}
 
-  <nav aria-label="More" class="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-stone-300 py-10 text-sm dark:border-stone-700">
-    <a href="/" class="mr-auto font-medium hover:text-stone-600 dark:hover:text-stone-300">← Back to all work</a>
+  <nav aria-label="Back and contact" class="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-stone-300 py-10 text-sm dark:border-stone-700">
+    <a href="/" class="mr-auto font-medium hover:text-stone-600 dark:hover:text-stone-300">← Back to the Work page</a>
     <a href={`mailto:${profile.email}`} class={underline}>Email me</a>
     <a href={profile.linkedin} class={underline}>LinkedIn</a>
     <a href={profile.github} class={underline}>GitHub</a>
