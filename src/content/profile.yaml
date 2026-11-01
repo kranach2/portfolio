@@ -1,0 +1,17 @@
+# Kishor's profile: one entry, read through getProfile() in src/lib/content.ts.
+# No phone number, ever.
+profile:
+  name: Kishor Rana Chhetri
+  headline: Software Engineer
+  pitch: I design, build and deploy full-stack web applications, REST APIs and cloud integrations with C#/.NET, TypeScript and Microsoft Azure.
+  location: Perth, WA
+  email: kishor.ranac@gmail.com
+  linkedin: https://www.linkedin.com/in/kishor-ranachhetri
+  github: https://github.com/kranach2
+  intro: >-
+    Software Engineer with 5+ years of experience designing, building and
+    deploying full-stack web applications, REST APIs and cloud integrations
+    using C#/.NET, TypeScript and Microsoft Azure. I deliver end to end, from
+    data model and API to front end, infrastructure and CI/CD in Azure DevOps,
+    and bring a security-first approach to identity (Azure AD B2C, OAuth 2.0,
+    OpenID Connect).
