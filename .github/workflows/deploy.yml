@@ -10,10 +10,11 @@ on:
 permissions:
   contents: read
 
-# Never let two deploys race; the newest push wins.
+# Never let two deploys race. A newer push replaces a queued run but never
+# cancels one mid-deploy.
 concurrency:
   group: deploy
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build-test-deploy:
@@ -28,11 +29,19 @@ jobs:
 
       - run: npm ci
 
+      # Build and test as separate steps (rather than `npm test`) so a schema
+      # failure and a test failure show up as different steps in the log.
       - run: npm run build
 
       - run: npx playwright install --with-deps chromium
 
       - run: npx playwright test
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results
+          path: test-results/
 
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
