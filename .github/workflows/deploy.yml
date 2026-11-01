@@ -1,0 +1,45 @@
+name: Build, test and deploy
+
+# Every push to main builds the site (content schema validation runs during
+# the build), runs the Playwright suite against that build, and deploys to
+# Azure Static Web Apps. Any failing step stops the job before deploy.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Never let two deploys race; the newest push wins.
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - run: npx playwright install --with-deps chromium
+
+      - run: npx playwright test
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: upload
+          # Upload the build from above as-is; don't let Azure rebuild it.
+          app_location: dist
+          skip_app_build: true
+          skip_api_build: true
