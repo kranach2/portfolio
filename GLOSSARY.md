@@ -39,7 +39,7 @@ A position held at an employer, with title, employer and dates.
 _Avoid_: Job, position
 
 **Earlier roles**:
-The pre-2021 IT support and operations Roles, shown condensed to a single line rather than in full.
+The IT support and operations Roles held before the software Roles, shown condensed to a single line rather than in full.
 _Avoid_: Old jobs, previous experience
 
 **Certification**:
