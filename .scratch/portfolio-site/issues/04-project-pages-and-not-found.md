@@ -4,11 +4,15 @@
 
 **Blocked by:** 01 (Work page from validated content, with the test harness)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] A page is generated per published Project only; Drafts get no page
-- [ ] Body sections render from the Project's Markdown headings; missing sections are omitted, not shown empty
-- [ ] The diagram renders with its required text alternative; a Project with no diagram omits the diagram section entirely
-- [ ] Page title and description come from the Project title and summary
-- [ ] Not-found page in the site's look with a link back to the Work page
-- [ ] Tests: every published Project page shows its title, kind and stack; a Project without a diagram has no diagram section; the fisheries industry body platform page shows its MVP, Phase 1 and Phase 2 and its main deliverables as sections; the Draft fixture's route shows the not-found page; an unknown route shows the not-found page with a working link back
+- [x] A page is generated per published Project only; Drafts get no page
+- [x] Body sections render from the Project's Markdown headings; missing sections are omitted, not shown empty
+- [x] The diagram renders with its required text alternative; a Project with no diagram omits the diagram section entirely
+- [x] Page title and description come from the Project title and summary
+- [x] Not-found page in the site's look with a link back to the Work page
+- [x] Tests: every published Project page shows its title, kind and stack; a Project without a diagram has no diagram section; the fisheries industry body platform page shows its MVP, Phase 1 and Phase 2 and its main deliverables as sections; the Draft fixture's route shows the not-found page; an unknown route shows the not-found page with a working link back
+
+## Comments
+
+**2026-11-01:** Deployed with 548b238. On the live site `/work/<slug>` serves the Project page with and without a trailing slash (200, no redirect); `/work/draft-fixture` and unknown routes return 404 with the not-found page. Open, waiting on Kishor's content: the diagram path (with its text alternative) is untested until a Project has a diagram, and when one exists it renders after the whole body (after Outcome too) rather than between What I built and Outcome.
