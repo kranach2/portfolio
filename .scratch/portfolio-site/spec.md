@@ -162,9 +162,9 @@ All content lives in the repo, validated by schemas at build time. A schema fail
   4. **Council website** (Client work, Diversus, for "a Perth local government"). Next.js with Material UI, Contentful as the headless CMS, AWS Cognito federated sign-in and AWS Amplify CI/CD; Kishor also worked on accessibility and SEO metadata.
 - None of the Projects has a diagram yet; a Project page omits the diagram section rather than showing a fake one until Kishor supplies one.
 - Commit one Draft Project as a permanent fixture so the "Drafts stay hidden" test has something to hide. Its title must read as an obvious test fixture.
-- Experience: the two software Roles in full: Technical Consultant, Diversus, Perth (Mar 2023 – present) and Software Engineer, Insig Technologies, Perth (Apr 2021 – Feb 2023). Earlier roles on one line: IT support and operations, VenuesWest (2017) and Insig (Oct 2020 – Mar 2021). The Insig dates come from Kishor and override the résumé and LinkedIn, which he will update to match.
+- Experience: the two software Roles in full: Technical Consultant, Diversus, Perth (Mar 2023 – present) and Software Engineer, Insig Technologies, Perth (Apr 2021 – Feb 2023). Earlier roles on one line: IT support and operations, VenuesWest (2017) and Insig (Oct 2020 – Mar 2021).
 - Skills: the résumé's categories, adding the staff profile's items where they fit (Angular, Material UI, Bootstrap, jQuery, GraphQL, Kontent.ai and Contentful, AWS Amplify and Cognito, Jira and Bitbucket). The staff profile's soft-skills list is not used.
-- Education: Bachelor of Information Technology, Edith Cowan University (2013–2016); Professional Year Program, National Institute of Technology (2016–2017). Never mention Honours in any form.
+- Education: Bachelor of Information Technology, Edith Cowan University (2013–2016); Professional Year Program, National Institute of Technology (2016–2017).
 - Featured certifications: Dynamics 365 + Power Platform Solution Architect Expert, Azure Developer Associate, Azure Administrator Associate, Azure AI Engineer Associate.
 - Verify links are placeholders (absent) until Kishor supplies Credly and Microsoft Learn transcript links; a Certification without a verify URL renders without a link, never a dead one.
 - No phone number anywhere: not in content, not in the résumé PDF (Kishor exports it by hand without the number), not in metadata.
@@ -200,7 +200,7 @@ All content lives in the repo, validated by schemas at build time. A schema fail
   - **Work page**: name, headline, pitch, email link, copy-email button (clipboard receives the address and confirmation appears), LinkedIn and GitHub links; Projects appear in `order` sequence; each links to its Project page.
   - **Drafts stay hidden**: the Draft fixture's title appears on no page, its Project page route returns not found, and it is absent from the sitemap.
   - **Project pages**: every published Project page renders its title, kind and stack; the diagram, when present, has its text alternative; a Project without a diagram renders no diagram section; the flagship Project shows each of its phases.
-  - **Info page**: sections appear in order (intro, Experience, Education, Certifications, Skills); Earlier roles render as one line; Certifications are grouped by issuer with Featured certifications first; no "Honours" text appears.
+  - **Info page**: sections appear in order (intro, Experience, Education, Certifications, Skills); Earlier roles render as one line; Certifications are grouped by issuer with Featured certifications first.
   - **Theme**: first load follows an emulated dark and light system setting; toggling changes the theme and its stored value; after a reload and on another page, the stored choice wins over the system setting.
   - **Reduced motion**: with reduced motion emulated, no element has an active animation.
   - **Accessibility**: an axe scan of every page in both themes reports no WCAG A or AA violations; the skip link moves focus to the main content.
@@ -226,5 +226,5 @@ All content lives in the repo, validated by schemas at build time. A schema fail
 
 - The Work page prototype verdict and how to revisit B or C are in `work-page-prototype.md` next to this spec; the prototype code is on branch `prototype/work-page`.
 - Domain language follows `GLOSSARY.md`: Visitor, Client, Project, Client work, Personal work, Draft, Role, Earlier roles, Certification, Featured certification, Work page, Info page. "Diagram", "hover preview" and "flagship" are used here as plain descriptions, not glossary terms. The Placeholder project term was retired once Kishor supplied real Projects.
-- Inputs owned by Kishor, none blocking: architecture diagrams, outcomes and dates per Project; Credly and Microsoft Learn transcript links; the résumé PDF export; the Cloudflare Web Analytics token; the Azure Static Web App provisioning; and on LinkedIn, removing "Honours" and correcting the Insig dates (the Oct 2020 support role is at Insig).
+- Inputs owned by Kishor, none blocking: architecture diagrams, outcomes and dates per Project; Credly and Microsoft Learn transcript links; the résumé PDF export; the Cloudflare Web Analytics token; and the Azure Static Web App provisioning.
 - Both content sources (the résumé and the staff profile) name Clients. Anyone extracting content from them must anonymise it before it enters the repo. The staff profile also carries the employer's branding and a photo; neither is used.
