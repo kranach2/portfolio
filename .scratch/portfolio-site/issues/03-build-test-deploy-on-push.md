@@ -4,10 +4,14 @@
 
 **Blocked by:** 01 (Work page from validated content, with the test harness), 02 (Provision Azure Static Web Apps)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] A GitHub Actions workflow triggered on push to main: install, build, Playwright, deploy
-- [ ] A failing build or test stops the workflow before deploy
-- [ ] Deploy uses the deployment token secret; no secret values in the repo
-- [ ] The site-URL config value is set to the provisioned URL
-- [ ] A push to main results in the Work page being live at the provisioned URL
+- [x] A GitHub Actions workflow triggered on push to main: install, build, Playwright, deploy
+- [x] A failing build or test stops the workflow before deploy
+- [x] Deploy uses the deployment token secret; no secret values in the repo
+- [x] The site-URL config value is set to the provisioned URL
+- [x] A push to main results in the Work page being live at the provisioned URL
+
+## Comments
+
+**2026-11-01:** Workflow at `.github/workflows/deploy.yml`. The push of f5dff92 deployed the Work page to https://calm-tree-04325ad00.1.azurestaticapps.net (run https://github.com/kranach2/portfolio/actions/runs/41299014865).
