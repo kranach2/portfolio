@@ -47,6 +47,9 @@ const profile = defineCollection({
   }),
 });
 
+// e.g. "Mar 2023".
+const monthYear = z.string().regex(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4}$/);
+
 const experience = defineCollection({
   loader: file("src/content/experience.yaml"),
   schema: z.object({
@@ -57,9 +60,8 @@ const experience = defineCollection({
           title: z.string().min(1),
           employer: z.string().min(1),
           location: z.string().min(1),
-          start: z.string().min(1),
-          // A month and year, or "Present".
-          end: z.string().min(1),
+          start: monthYear,
+          end: z.union([monthYear, z.literal("Present")]),
           did: z.array(z.string().min(1)).min(1),
         }),
       )
@@ -101,6 +103,10 @@ const certifications = defineCollection({
     .refine((c) => (c.year === undefined) !== (c.validUntil === undefined), {
       message: "give exactly one of year or validUntil",
       path: ["year"],
+    })
+    .refine((c) => c.validUntil === undefined || c.issuer === "CompTIA", {
+      message: "validUntil is for CompTIA only",
+      path: ["validUntil"],
     }),
 });
 

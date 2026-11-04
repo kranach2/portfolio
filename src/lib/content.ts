@@ -10,17 +10,15 @@ export async function getPublishedProjects(): Promise<Project[]> {
   return projects.sort((a, b) => a.data.order - b.data.order);
 }
 
-export async function getProfile() {
-  const entry = await getEntry("profile", "profile");
-  if (!entry) throw new Error("src/content/profile.yaml has no `profile` entry");
-  return entry.data;
+// A data file holding one entry keyed by the collection's own name.
+async function getSingle<C extends "profile" | "experience" | "skills">(name: C) {
+  const entry = await getEntry(name, name);
+  if (!entry) throw new Error(`src/content/${name}.yaml has no \`${name}\` entry`);
+  return entry.data as CollectionEntry<C>["data"];
 }
 
-export async function getExperience() {
-  const entry = await getEntry("experience", "experience");
-  if (!entry) throw new Error("src/content/experience.yaml has no `experience` entry");
-  return entry.data;
-}
+export const getProfile = () => getSingle("profile");
+export const getExperience = () => getSingle("experience");
 
 // Qualifications, earliest first.
 export async function getEducation() {
@@ -46,8 +44,4 @@ export async function getCertifications() {
 }
 
 // Skills categories, each a plain list of items.
-export async function getSkills() {
-  const entry = await getEntry("skills", "skills");
-  if (!entry) throw new Error("src/content/skills.yaml has no `skills` entry");
-  return entry.data.categories;
-}
+export const getSkills = async () => (await getSingle("skills")).categories;
