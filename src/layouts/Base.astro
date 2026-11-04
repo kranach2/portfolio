@@ -39,9 +39,14 @@ const { title, description, current } = Astro.props;
     </div>
 
     <script>
-      document.querySelectorAll("[data-theme-toggle]").forEach((b) =>
+      const toggles = document.querySelectorAll("[data-theme-toggle]");
+      const setPressed = (dark: boolean) =>
+        toggles.forEach((b) => b.setAttribute("aria-pressed", String(dark)));
+      setPressed(document.documentElement.classList.contains("dark"));
+      toggles.forEach((b) =>
         b.addEventListener("click", () => {
           const dark = document.documentElement.classList.toggle("dark");
+          setPressed(dark);
           try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch {}
         }),
       );
