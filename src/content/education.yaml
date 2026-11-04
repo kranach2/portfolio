@@ -1,0 +1,14 @@
+# Education: one entry per qualification, read through getEducation() in
+# src/lib/content.ts, which lists them by start year.
+bachelor-of-it:
+  qualification: Bachelor of Information Technology
+  institution: Edith Cowan University
+  location: Perth, WA
+  start: 2013
+  end: 2016
+professional-year:
+  qualification: Professional Year Program
+  institution: National Institute of Technology
+  location: Perth, WA
+  start: 2016
+  end: 2017

@@ -1,0 +1,34 @@
+# Experience: one entry, read through getExperience() in src/lib/content.ts.
+# Drawn from the résumé. No Client names (ADR 0002): use the neutral
+# descriptions.
+experience:
+  roles:
+    - title: Technical Consultant
+      employer: Diversus
+      location: Perth, WA
+      start: Mar 2023
+      end: Present
+      did:
+        - Delivered full-stack applications, system integrations and Azure infrastructure for clients in government, tourism and primary industries.
+        - Delivered a WA fisheries industry body's platform through the initial MVP, Phase 1 and Phase 2, with a custom UI on Power Pages, Dynamics 365, Dataverse, Logic Apps and Azure Functions.
+        - Built a Next.js and TypeScript ordering application for fishing trip supplies, with a Prisma/PostgreSQL data layer, API-key-secured REST endpoints and email notifications.
+        - Designed a Xero-to-Dataverse financial integration with Azure Logic Apps and Azure Functions, later extended to payroll and superannuation with a historical backfill.
+        - Architected a highly available Moodle LMS on Azure, with single sign-on through Azure AD B2C and OpenID Connect.
+        - Developed the front end and back end of a WA state tourism agency's corporate website with Angular, the Kontent.ai headless CMS and .NET.
+        - Developed a Perth local government's website with Next.js, Material UI, Contentful, AWS Cognito and AWS Amplify, and improved its accessibility and SEO metadata.
+        - Resolved cross-origin failures in a mobile app by configuring CORS policies in Azure API Management.
+        - Documented architecture, runbooks and operational procedures in Azure DevOps Wiki.
+    - title: Software Engineer
+      employer: Insig Technologies
+      location: Perth, WA
+      start: Oct 2021
+      end: Feb 2023
+      did:
+        - Built a mine execution control system for a mining contractor, used by planners and control room operators to plan mining activities and record their progress and outcomes.
+        - Built RESTful APIs in C# and ASP.NET Core on a microservice architecture, using Entity Framework Core against SQL databases.
+        - Built an API gateway to standardise and centralise the delivery of services across the microservices.
+        - Developed the Vue.js front end with TypeScript, HTML and Sass.
+        - Wrote xUnit unit tests for the APIs.
+        - Contributed to containerised microservices with Docker and to CI/CD pipelines in Azure DevOps.
+        - Worked in an Agile/Scrum team with Git branching and pull-request code reviews.
+  earlier: IT support and operations at VenuesWest (2017), a private employer (Oct 2020 – Mar 2021) and Insig Technologies (Apr 2021 – Oct 2021).

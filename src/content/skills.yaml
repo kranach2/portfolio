@@ -1,0 +1,64 @@
+# Skills: one entry, read through getSkills() in src/lib/content.ts. The
+# résumé's categories, in its order, plus the staff profile items the spec
+# lists. Plain lists: no ratings, levels or soft skills.
+skills:
+  categories:
+    - name: Languages
+      items: [C#, TypeScript, JavaScript, Python, SQL, HTML5, CSS3, Sass]
+    - name: Frameworks & Libraries
+      items:
+        - .NET
+        - ASP.NET Core
+        - Entity Framework Core
+        - LINQ
+        - Node.js
+        - Next.js
+        - React
+        - Angular
+        - Vue.js
+        - jQuery
+        - Prisma
+        - xUnit
+        - Bootstrap
+        - Material UI
+        - Tailwind CSS
+    - name: Cloud
+      items:
+        - Microsoft Azure (Functions, Logic Apps, API Management, Static Web Apps, VM Scale Sets, Load Balancer, Recovery Services)
+        - AWS (Amplify, Cognito)
+    - name: DevOps
+      items: [Azure DevOps, CI/CD Pipelines, GitHub Actions, Git, Bitbucket, Docker, Kubernetes, Linux, Nginx]
+    - name: Data
+      items: [PostgreSQL, SQL, Microsoft Dataverse, pandas, Contentful (headless CMS), Kontent.ai (headless CMS)]
+    - name: Microsoft Business Apps
+      items:
+        - Power Platform (Power Pages, Power Apps, Power Automate)
+        - Dynamics 365
+        - Project Operations
+    - name: Identity & Security
+      items:
+        - Azure AD B2C
+        - Microsoft Entra ID
+        - AWS Cognito
+        - OAuth 2.0
+        - OpenID Connect (OIDC)
+        - API Authentication
+        - CORS
+        - Content Security Policy
+        - SSL/TLS
+    - name: Practices
+      items:
+        - REST API Design
+        - GraphQL
+        - Microservices
+        - API Gateways
+        - Design Patterns
+        - Data Structures & Algorithms
+        - Unit Testing
+        - End-to-End Testing (Playwright)
+        - Web Accessibility
+        - SEO
+        - Agile
+        - Scrum
+        - Jira
+        - Technical Documentation

@@ -1,0 +1,99 @@
+---
+// Info page: the intro, then Experience, Education, Certifications and
+// Skills, each from its own data file. In the Work page's look.
+import Base from "../layouts/Base.astro";
+import { getCertifications, getEducation, getExperience, getProfile, getSkills } from "../lib/content";
+const profile = await getProfile();
+const experience = await getExperience();
+const education = await getEducation();
+const certifications = await getCertifications();
+const skills = await getSkills();
+const label = "text-sm uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400";
+const h2 = "font-serif text-4xl";
+const underline = "underline decoration-stone-400 underline-offset-4 hover:decoration-stone-900 dark:hover:decoration-stone-100";
+---
+<Base
+  title={`Info · ${profile.name}`}
+  description={`${profile.name}'s experience, education, certifications and skills: ${profile.headline} in ${profile.location}.`}
+  current="info"
+>
+  <header class="pb-16 pt-20 sm:pt-32">
+    <p class={`fade-in ${label}`}>Info</p>
+    <h1 class="fade-in mt-6 font-serif text-5xl leading-[1.05] sm:text-7xl" style="--i:1">{profile.name}</h1>
+    <p class="fade-in mt-8 max-w-2xl text-lg leading-relaxed text-stone-600 dark:text-stone-400" style="--i:2">{profile.intro}</p>
+  </header>
+
+  <section aria-labelledby="experience-heading" class="fade-in pb-16" style="--i:3">
+    <h2 id="experience-heading" class={h2}>Experience</h2>
+    {experience.roles.map((role, i) => (
+      <article aria-labelledby={`role-${i}`} class="mt-10 grid gap-x-10 gap-y-2 border-t border-stone-300 pt-8 sm:grid-cols-[1fr_12rem] dark:border-stone-700">
+        <div>
+          <h3 id={`role-${i}`} class="font-serif text-3xl">{role.title}</h3>
+          <p class="mt-1 text-stone-600 dark:text-stone-400">{role.employer} · {role.location}</p>
+        </div>
+        <p class="text-sm text-stone-500 sm:row-start-1 sm:col-start-2 sm:pt-2 sm:text-right dark:text-stone-400">{role.start} – {role.end}</p>
+        <ul aria-label="What I did" class="mt-4 max-w-2xl list-disc space-y-2 pl-6 leading-relaxed text-stone-700 dark:text-stone-300">
+          {role.did.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+    ))}
+    <p class="mt-10 border-t border-stone-300 pt-8 text-stone-600 dark:border-stone-700 dark:text-stone-400">
+      <span class="font-medium text-stone-900 dark:text-stone-100">Earlier roles:</span> {experience.earlier}
+    </p>
+  </section>
+
+  <section aria-labelledby="education-heading" class="fade-in pb-16" style="--i:4">
+    <h2 id="education-heading" class={h2}>Education</h2>
+    <ul class="mt-10 border-t border-stone-300 dark:border-stone-700">
+      {education.map((e) => (
+        <li class="grid gap-x-10 gap-y-1 border-b border-stone-300 py-6 sm:grid-cols-[1fr_12rem] dark:border-stone-700">
+          <span>
+            <span class="block font-serif text-2xl">{e.qualification}</span>
+            <span class="mt-1 block text-stone-600 dark:text-stone-400">{e.institution} · {e.location}</span>
+          </span>
+          <span class="text-sm text-stone-500 sm:pt-2 sm:text-right dark:text-stone-400">{e.start}–{e.end}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section aria-labelledby="certifications-heading" class="fade-in pb-16" style="--i:5">
+    <h2 id="certifications-heading" class={h2}>Certifications</h2>
+    <div class="mt-10 grid gap-12 border-t border-stone-300 pt-8 dark:border-stone-700">
+      {certifications.map(({ issuer, certifications }) => (
+        <div class="grid gap-x-10 gap-y-4 sm:grid-cols-[12rem_1fr]">
+          <h3 id={`issuer-${issuer}`} class={`${label} sm:pt-1`}>{issuer}</h3>
+          <ul aria-labelledby={`issuer-${issuer}`} class="space-y-3">
+            {certifications.map((c) => (
+              <li class={c.featured
+                ? "flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-xl bg-white px-5 py-4 shadow-sm dark:bg-stone-800"
+                : "flex flex-wrap items-baseline gap-x-3 gap-y-1 px-5"}>
+                {c.featured && (
+                  <span class="rounded-full bg-[#a0522d] px-2 py-0.5 text-xs font-medium uppercase tracking-wider text-[#f6f3ee] dark:bg-[#e0a37a] dark:text-stone-900">Featured</span>
+                )}
+                <span class={c.featured ? "font-serif text-2xl" : "text-stone-700 dark:text-stone-300"}>
+                  {c.verify ? <a href={c.verify} class={underline}>{c.name}</a> : c.name}
+                </span>
+                <span class="text-sm text-stone-500 dark:text-stone-400">{c.year ?? `Valid to ${c.validUntil}`}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section aria-labelledby="skills-heading" class="fade-in pb-24" style="--i:6">
+    <h2 id="skills-heading" class={h2}>Skills</h2>
+    <div class="mt-10 border-t border-stone-300 dark:border-stone-700">
+      {skills.map((category, i) => (
+        <div class="grid gap-x-10 gap-y-3 border-b border-stone-300 py-6 sm:grid-cols-[12rem_1fr] dark:border-stone-700">
+          <h3 id={`skills-${i}`} class={`${label} sm:pt-0.5`}>{category.name}</h3>
+          <ul aria-labelledby={`skills-${i}`} class="flex flex-wrap gap-x-5 gap-y-2 text-stone-700 dark:text-stone-300">
+            {category.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>

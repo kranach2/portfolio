@@ -47,4 +47,84 @@ const profile = defineCollection({
   }),
 });
 
-export const collections = { projects, profile };
+const experience = defineCollection({
+  loader: file("src/content/experience.yaml"),
+  schema: z.object({
+    // The software Roles, shown in full in this order.
+    roles: z
+      .array(
+        z.object({
+          title: z.string().min(1),
+          employer: z.string().min(1),
+          location: z.string().min(1),
+          start: z.string().min(1),
+          // A month and year, or "Present".
+          end: z.string().min(1),
+          did: z.array(z.string().min(1)).min(1),
+        }),
+      )
+      .min(1),
+    // Earlier roles, condensed to a single line.
+    earlier: z.string().min(1),
+  }),
+});
+
+const education = defineCollection({
+  loader: file("src/content/education.yaml"),
+  schema: z
+    .object({
+      qualification: z.string().min(1),
+      institution: z.string().min(1),
+      location: z.string().min(1),
+      start: z.number().int(),
+      end: z.number().int(),
+    })
+    .refine((e) => e.end >= e.start, { message: "end is before start", path: ["end"] }),
+});
+
+// Issuers in the order the Info page groups them.
+export const issuers = ["Microsoft", "AWS", "CompTIA"] as const;
+
+const certifications = defineCollection({
+  loader: file("src/content/certifications.yaml"),
+  schema: z
+    .object({
+      issuer: z.enum(issuers),
+      name: z.string().min(1),
+      year: z.number().int().optional(),
+      // CompTIA's in place of a year, e.g. "Jan 2027".
+      validUntil: z.string().min(1).optional(),
+      // Optional: without one the Certification renders as plain text.
+      verify: z.url().optional(),
+      featured: z.boolean().default(false),
+    })
+    .refine((c) => (c.year === undefined) !== (c.validUntil === undefined), {
+      message: "give exactly one of year or validUntil",
+      path: ["year"],
+    }),
+});
+
+// The résumé's Skills categories, all of them, in this order.
+const skillCategories = [
+  "Languages",
+  "Frameworks & Libraries",
+  "Cloud",
+  "DevOps",
+  "Data",
+  "Microsoft Business Apps",
+  "Identity & Security",
+  "Practices",
+];
+
+const skills = defineCollection({
+  loader: file("src/content/skills.yaml"),
+  schema: z.object({
+    categories: z
+      .array(z.object({ name: z.string().min(1), items: z.array(z.string().min(1)).min(1) }))
+      .refine((cs) => cs.map((c) => c.name).join("|") === skillCategories.join("|"), {
+        message: `categories must be exactly, in order: ${skillCategories.join("; ")}`,
+      }),
+  }),
+});
+
+export const collections = { projects, profile, experience, education, certifications, skills };

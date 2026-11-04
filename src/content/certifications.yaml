@@ -1,0 +1,48 @@
+# Certifications: one entry each, read through getCertifications() in
+# src/lib/content.ts, which groups them by issuer with Featured ones first.
+# Each has a year or (CompTIA) a validity date. Add `verify` (a Credly or
+# Microsoft Learn URL) once Kishor supplies it; without one, no link renders.
+azure-ai-engineer:
+  issuer: Microsoft
+  name: Azure AI Engineer Associate
+  year: 2026
+  featured: true
+azure-administrator:
+  issuer: Microsoft
+  name: Azure Administrator Associate
+  year: 2025
+  featured: true
+azure-developer:
+  issuer: Microsoft
+  name: Azure Developer Associate
+  year: 2024
+  featured: true
+solution-architect-expert:
+  issuer: Microsoft
+  name: Dynamics 365 + Power Platform Solution Architect Expert
+  year: 2023
+  featured: true
+power-platform-developer:
+  issuer: Microsoft
+  name: Power Platform Developer Associate
+  year: 2023
+dynamics-365-sales:
+  issuer: Microsoft
+  name: Dynamics 365 Sales Functional Consultant Associate
+  year: 2023
+customer-data-platform:
+  issuer: Microsoft
+  name: Customer Data Platform Specialty
+  year: 2023
+aws-cloud-practitioner:
+  issuer: AWS
+  name: AWS Certified Cloud Practitioner
+  year: 2024
+comptia-core:
+  issuer: CompTIA
+  name: CompTIA Security+, Network+ and A+
+  validUntil: Jan 2027
+comptia-specialist:
+  issuer: CompTIA
+  name: CompTIA Secure Infrastructure Specialist (CSIS) and IT Operations Specialist (CIOS)
+  validUntil: Jan 2027
