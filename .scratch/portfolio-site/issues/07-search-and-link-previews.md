@@ -4,10 +4,14 @@
 
 **Blocked by:** 04 (Project pages and the not-found page), 05 (Info page)
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Unique title and meta description per page
-- [ ] Open Graph and Twitter card tags on every page, pointing at the generated preview image
-- [ ] Preview image generated during the build, not a hand-made asset
-- [ ] Sitemap and robots file; canonical URL per page
-- [ ] Tests: titles are unique and descriptions present on every page; preview tags present and the image is served; the sitemap lists exactly the published pages and not the Draft fixture
+- [x] Unique title and meta description per page
+- [x] Open Graph and Twitter card tags on every page, pointing at the generated preview image
+- [x] Preview image generated during the build, not a hand-made asset
+- [x] Sitemap and robots file; canonical URL per page
+- [x] Tests: titles are unique and descriptions present on every page; preview tags present and the image is served; the sitemap lists exactly the published pages and not the Draft fixture
+
+## Comments
+
+**2026-11-05:** Deployed with f972abd. On the live site `/`, `/info` and a Project page return 200 with no redirect, so canonical URLs without a trailing slash point straight at the page. `/sitemap.xml` (text/xml) lists exactly the Work page, the Info page and the four published Project pages; `/robots.txt` points to it; `/og.png` is served as image/png; `/work/draft-fixture` is 404. The preview image is drawn at build time by Satori with the site's fonts (from `@fontsource`) and turned into a PNG by sharp; it also shows the location line, matching the Work page header. The not-found page carries the preview tags but deliberately names no canonical URL, since it has no address of its own. Open: `npm audit` reports 2 moderate advisories in `fflate` via `satori` (ZIP64 parsing, never used by this build); the tests check the image is served at 1200×630 but not what it shows, which was checked by eye; link previews were not checked in Slack, Teams or LinkedIn themselves.
