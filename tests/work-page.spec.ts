@@ -8,21 +8,21 @@ test.beforeEach(async ({ page }) => {
 
 test("introduces Kishor with name, headline and pitch", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Kishor Rana Chhetri");
-  await expect(page.getByRole("banner").getByText("Software Engineer")).toBeVisible();
+  await expect(page.getByRole("main").getByText("Software Engineer")).toBeVisible();
   await expect(
     page.getByText("I design, build and deploy full-stack web applications", { exact: false }),
   ).toBeVisible();
 });
 
-test("offers email, LinkedIn and GitHub links in the header", async ({ page }) => {
-  const header = page.getByRole("banner");
+test("offers email, LinkedIn and GitHub links in the main content", async ({ page }) => {
+  const main = page.getByRole("main");
   const links = [
     ["Email me", `mailto:${email}`],
     ["LinkedIn", "https://www.linkedin.com/in/kishor-ranachhetri"],
     ["GitHub", "https://github.com/kranach2"],
   ];
   for (const [name, href] of links) {
-    const link = header.getByRole("link", { name });
+    const link = main.getByRole("link", { name });
     await expect(link).toBeVisible();
     await expect(link).toHaveAttribute("href", href);
   }

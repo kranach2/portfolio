@@ -48,9 +48,15 @@ const previewImage = new URL("/og.png", Astro.site).href;
     </script>
   </head>
   <body class="bg-[#f6f3ee] text-stone-900 dark:bg-[#161412] dark:text-stone-100">
+    <a href="#main" class="sr-only rounded-full bg-stone-900 text-sm text-[#f6f3ee] focus:not-sr-only focus:absolute focus:left-6 focus:top-5 focus:z-20 focus:px-5 focus:py-2.5 dark:bg-stone-100 dark:text-stone-900">Skip to content</a>
     <div class="mx-auto max-w-5xl px-6 sm:px-10">
-      <Nav current={current} />
-      <slot />
+      <header>
+        <Nav current={current} />
+      </header>
+      {/* Focusable so the skip link moves focus here, not only the scroll position. */}
+      <main id="main" tabindex="-1">
+        <slot />
+      </main>
       <Footer />
     </div>
 

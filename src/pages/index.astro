@@ -9,7 +9,7 @@ const underline = "underline decoration-stone-400 underline-offset-4 hover:decor
 ---
 <Base title={`${profile.name} · ${profile.headline}`} description={profile.pitch} current="work">
   <header class="pb-24 pt-20 sm:pt-32">
-    <p class="fade-in text-sm uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">{profile.headline} · {profile.location}</p>
+    <p class="fade-in text-sm uppercase tracking-[0.2em] text-stone-600 dark:text-stone-400">{profile.headline} · {profile.location}</p>
     <h1 class="fade-in mt-6 max-w-4xl font-serif text-5xl leading-[1.05] sm:text-7xl" style="--i:1">
       {profile.name} builds <em class="text-[#a0522d] dark:text-[#e0a37a]">full-stack apps</em> and the cloud they run on.
     </h1>
@@ -23,18 +23,18 @@ const underline = "underline decoration-stone-400 underline-offset-4 hover:decor
   </header>
 
   <section class="pb-32" aria-labelledby="work-heading">
-    <h2 id="work-heading" class="text-sm uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">Selected work</h2>
+    <h2 id="work-heading" class="text-sm uppercase tracking-[0.2em] text-stone-600 dark:text-stone-400">Selected work</h2>
     <ul class="mt-6 border-t border-stone-300 dark:border-stone-700">
       {projects.map((p, i) => (
         <li class="group fade-in relative border-b border-stone-300 dark:border-stone-700" style={`--i:${i + 4}`}>
           <a href={projectPath(p)} class="grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-7 sm:grid-cols-[3rem_1fr_9rem]">
-            <span class="font-serif text-lg text-stone-400" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+            <span class="font-serif text-lg text-stone-600 dark:text-stone-400" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
             <span>
               <span class="block font-serif text-3xl transition-transform duration-300 group-hover:translate-x-2 sm:text-4xl">{p.data.title}</span>
-              <span class="mt-2 block text-sm text-stone-500 dark:text-stone-400">{p.data.kind} · {p.data.stack.slice(0, 3).join(", ")}</span>
+              <span class="mt-2 block text-sm text-stone-600 dark:text-stone-400">{p.data.kind} · {p.data.stack.slice(0, 3).join(", ")}</span>
             </span>
             {p.data.period && (
-              <span class="col-start-2 mt-2 text-sm text-stone-500 sm:col-start-auto sm:mt-0 sm:text-right dark:text-stone-400">{p.data.period}</span>
+              <span class="col-start-2 mt-2 text-sm text-stone-600 sm:col-start-auto sm:mt-0 sm:text-right dark:text-stone-400">{p.data.period}</span>
             )}
           </a>
           {/* Hover preview: decorative, desktop pointers only. */}

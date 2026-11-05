@@ -19,7 +19,7 @@ const { project } = Astro.props;
 const { title, kind, summary, stack, diagram, links } = project.data;
 const profile = await getProfile();
 const { Content } = await render(project);
-const label = "text-sm uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400";
+const label = "text-sm uppercase tracking-[0.2em] text-stone-600 dark:text-stone-400";
 const underline = "underline decoration-stone-400 underline-offset-4 hover:decoration-stone-900 dark:hover:decoration-stone-100";
 // Tailwind's reset strips Markdown's default styling; restore it in the site's look.
 const prose = [

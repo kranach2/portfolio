@@ -3,7 +3,7 @@ import { getProfile } from "../lib/content";
 const profile = await getProfile();
 const link = "hover:text-stone-900 dark:hover:text-stone-100";
 ---
-<footer class="flex flex-col gap-4 border-t border-stone-300 py-10 text-sm text-stone-500 sm:flex-row sm:justify-between dark:border-stone-700 dark:text-stone-400">
+<footer class="flex flex-col gap-4 border-t border-stone-300 py-10 text-sm text-stone-600 sm:flex-row sm:justify-between dark:border-stone-700 dark:text-stone-400">
   <span>© {new Date().getFullYear()} {profile.name}</span>
   <span class="flex gap-6">
     <a href={`mailto:${profile.email}`} class={link}>Email</a>

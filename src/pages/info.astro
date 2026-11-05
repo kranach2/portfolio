@@ -8,7 +8,7 @@ const experience = await getExperience();
 const education = await getEducation();
 const certifications = await getCertifications();
 const skills = await getSkills();
-const label = "text-sm uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400";
+const label = "text-sm uppercase tracking-[0.2em] text-stone-600 dark:text-stone-400";
 const sectionHeading = "font-serif text-4xl";
 const underline = "underline decoration-stone-400 underline-offset-4 hover:decoration-stone-900 dark:hover:decoration-stone-100";
 ---
@@ -31,7 +31,7 @@ const underline = "underline decoration-stone-400 underline-offset-4 hover:decor
           <h3 id={`role-${i}`} class="font-serif text-3xl">{role.title}</h3>
           <p class="mt-1 text-stone-600 dark:text-stone-400">{role.employer} · {role.location}</p>
         </div>
-        <p class="text-sm text-stone-500 sm:row-start-1 sm:col-start-2 sm:pt-2 sm:text-right dark:text-stone-400">{role.start} – {role.end}</p>
+        <p class="text-sm text-stone-600 sm:row-start-1 sm:col-start-2 sm:pt-2 sm:text-right dark:text-stone-400">{role.start} – {role.end}</p>
         <ul aria-label="What I did" class="mt-4 max-w-2xl list-disc space-y-2 pl-6 leading-relaxed text-stone-700 dark:text-stone-300">
           {role.did.map((item) => <li>{item}</li>)}
         </ul>
@@ -51,7 +51,7 @@ const underline = "underline decoration-stone-400 underline-offset-4 hover:decor
             <span class="block font-serif text-2xl">{e.qualification}</span>
             <span class="mt-1 block text-stone-600 dark:text-stone-400">{e.institution} · {e.location}</span>
           </span>
-          <span class="text-sm text-stone-500 sm:pt-2 sm:text-right dark:text-stone-400">{e.start}–{e.end}</span>
+          <span class="text-sm text-stone-600 sm:pt-2 sm:text-right dark:text-stone-400">{e.start}–{e.end}</span>
         </li>
       ))}
     </ul>
@@ -74,7 +74,7 @@ const underline = "underline decoration-stone-400 underline-offset-4 hover:decor
                 <span class={c.featured ? "font-serif text-2xl" : "text-stone-700 dark:text-stone-300"}>
                   {c.verify ? <a href={c.verify} class={underline}>{c.name}</a> : c.name}
                 </span>
-                <span class="text-sm text-stone-500 dark:text-stone-400">{c.year ?? `Valid to ${c.validUntil}`}</span>
+                <span class="text-sm text-stone-600 dark:text-stone-400">{c.year ?? `Valid to ${c.validUntil}`}</span>
               </li>
             ))}
           </ul>

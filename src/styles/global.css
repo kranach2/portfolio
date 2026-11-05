@@ -19,3 +19,17 @@
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: none; }
 }
+
+/* A focus ring in the page's ink colour, so it shows against the page in both
+   themes (currentColor would vanish around the light-on-dark pill buttons). */
+:focus-visible {
+  outline: 2px solid var(--color-stone-900);
+  outline-offset: 3px;
+}
+.dark :focus-visible {
+  outline-color: var(--color-stone-100);
+}
+/* <main> takes focus from the skip link; it doesn't need a ring of its own. */
+main:focus {
+  outline: none;
+}
