@@ -3,7 +3,7 @@
 // Azure serves it via public/staticwebapp.config.json.
 import Base from "../layouts/Base.astro";
 ---
-<Base title="Page not found" description="There is no page at this address.">
+<Base title="Page not found" description="There is no page at this address." canonical={false}>
   <header class="pb-32 pt-20 sm:pt-32">
     <p class="fade-in text-sm uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">404</p>
     <h1 class="fade-in mt-6 font-serif text-5xl leading-[1.05] sm:text-7xl" style="--i:1">Page not found</h1>

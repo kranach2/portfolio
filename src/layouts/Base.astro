@@ -7,8 +7,14 @@ interface Props {
   title: string;
   description: string;
   current?: "work" | "info";
+  // False for the not-found page, which has no address of its own.
+  canonical?: boolean;
 }
-const { title, description, current } = Astro.props;
+const { title, description, current, canonical = true } = Astro.props;
+// Page addresses carry no trailing slash, matching the nav's links.
+const path = Astro.url.pathname.replace(/(.)\/$/, "$1");
+const canonicalUrl = new URL(path, Astro.site).href;
+const previewImage = new URL("/og.png", Astro.site).href;
 ---
 <!doctype html>
 <html lang="en-AU">
@@ -17,6 +23,16 @@ const { title, description, current } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonicalUrl} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonicalUrl} />}
+    <meta property="og:image" content={previewImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={previewImage} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

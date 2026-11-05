@@ -10,6 +10,9 @@ export async function getPublishedProjects(): Promise<Project[]> {
   return projects.sort((a, b) => a.data.order - b.data.order);
 }
 
+// The address of a Project's page.
+export const projectPath = (project: Project) => `/work/${project.id}`;
+
 // A data file holding one entry keyed by the collection's own name.
 async function getSingle<C extends "profile" | "experience" | "skills">(name: C) {
   const entry = await getEntry(name, name);

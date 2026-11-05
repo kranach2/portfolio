@@ -2,7 +2,7 @@
 // Work page: Variant A (Editorial) from the prototype on branch
 // prototype/work-page. See .scratch/portfolio-site/work-page-prototype.md.
 import Base from "../layouts/Base.astro";
-import { getProfile, getPublishedProjects } from "../lib/content";
+import { getProfile, getPublishedProjects, projectPath } from "../lib/content";
 const profile = await getProfile();
 const projects = await getPublishedProjects();
 const underline = "underline decoration-stone-400 underline-offset-4 hover:decoration-stone-900 dark:hover:decoration-stone-100";
@@ -27,7 +27,7 @@ const underline = "underline decoration-stone-400 underline-offset-4 hover:decor
     <ul class="mt-6 border-t border-stone-300 dark:border-stone-700">
       {projects.map((p, i) => (
         <li class="group fade-in relative border-b border-stone-300 dark:border-stone-700" style={`--i:${i + 4}`}>
-          <a href={`/work/${p.id}`} class="grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-7 sm:grid-cols-[3rem_1fr_9rem]">
+          <a href={projectPath(p)} class="grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-7 sm:grid-cols-[3rem_1fr_9rem]">
             <span class="font-serif text-lg text-stone-400" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
             <span>
               <span class="block font-serif text-3xl transition-transform duration-300 group-hover:translate-x-2 sm:text-4xl">{p.data.title}</span>
