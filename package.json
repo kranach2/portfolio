@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "astro build && playwright test",
+    "build:beacon-fixture": "CLOUDFLARE_ANALYTICS_TOKEN=test-beacon-token astro build --outDir dist-beacon",
+    "test": "astro build && npm run build:beacon-fixture && playwright test",
     "check": "astro check"
   },
   "dependencies": {

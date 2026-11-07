@@ -1,4 +1,5 @@
 ---
+import { CLOUDFLARE_ANALYTICS_TOKEN } from "astro:env/server";
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
@@ -15,6 +16,8 @@ const { title, description, current, canonical = true } = Astro.props;
 const path = Astro.url.pathname.replace(/(.)\/$/, "$1");
 const canonicalUrl = new URL(path, Astro.site).href;
 const previewImage = new URL("/og.png", Astro.site).href;
+// Cookie-free analytics, in production builds with a token only.
+const beaconToken = import.meta.env.PROD ? CLOUDFLARE_ANALYTICS_TOKEN : undefined;
 ---
 <!doctype html>
 <html lang="en-AU">
@@ -82,5 +85,13 @@ const previewImage = new URL("/og.png", Astro.site).href;
         }),
       );
     </script>
+    {beaconToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: beaconToken })}
+      ></script>
+    )}
   </body>
 </html>

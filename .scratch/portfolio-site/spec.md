@@ -204,6 +204,7 @@ All content lives in the repo, validated by schemas at build time. A schema fail
   - **Theme**: first load follows an emulated dark and light system setting; toggling changes the theme and its stored value; after a reload and on another page, the stored choice wins over the system setting.
   - **Reduced motion**: with reduced motion emulated, no element has an active animation.
   - **Accessibility**: an axe scan of every page in both themes reports no WCAG A or AA violations; the skip link moves focus to the main content.
+  - **Analytics**: a second build with a test token, served alongside the tokenless one, includes the beacon on every page; the tokenless build has none; the beacon sets no cookies. CI applies Kishor's real token only in a rebuild after the tests pass, so test runs never report visits.
   - **Metadata**: each page has a unique title and a description; link-preview tags are present and the preview image is served; the sitemap lists exactly the published pages.
   - **Privacy guard**: no page's text or markup matches an Australian mobile phone number pattern. (A guard for the Client's name is deliberately not written: it would put the name in the repo, against ADR 0002.)
   - **Not found**: an unknown route shows the not-found page with a link back to the Work page.

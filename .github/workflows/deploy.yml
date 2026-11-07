@@ -33,6 +33,9 @@ jobs:
       # failure and a test failure show up as different steps in the log.
       - run: npm run build
 
+      # The same site with a test analytics token, for the analytics tests.
+      - run: npm run build:beacon-fixture
+
       - run: npx playwright install --with-deps chromium
 
       - run: npx playwright test
@@ -43,12 +46,20 @@ jobs:
           name: playwright-results
           path: test-results/
 
+      # Rebuild with Kishor's analytics token only now, so test runs never
+      # report visits. The token is public (it ships in every page), so it's a
+      # repository variable, not a secret; while it's unset, no beacon.
+      - name: Build with the analytics token
+        run: npm run build
+        env:
+          CLOUDFLARE_ANALYTICS_TOKEN: ${{ vars.CLOUDFLARE_ANALYTICS_TOKEN }}
+
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: upload
-          # Upload the build from above as-is; don't let Azure rebuild it.
+          # Upload the token build from above as-is; don't let Azure rebuild it.
           app_location: dist
           skip_app_build: true
           skip_api_build: true

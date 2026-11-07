@@ -2,6 +2,7 @@ source/
 .DS_Store
 node_modules/
 dist/
+dist-beacon/
 .astro/
 test-results/
 playwright-report/
