@@ -4,12 +4,12 @@
 
 **Blocked by:** 03 (Build, test and deploy on push to main)
 
-**Status:** ready-for-human
+**Status:** done
 
-- [ ] Beacon included on every page only in production builds with a token configured
-- [ ] No cookies set and no cookie banner
-- [ ] Kishor adds the site in Cloudflare Web Analytics and supplies the token (human step, noted in a comment on this ticket)
-- [ ] Tests: the built site without a token contains no beacon; with a token configured, every page includes it
+- [x] Beacon included on every page only in production builds with a token configured
+- [x] No cookies set and no cookie banner
+- [x] Kishor adds the site in Cloudflare Web Analytics and supplies the token (human step, noted in a comment on this ticket)
+- [x] Tests: the built site without a token contains no beacon; with a token configured, every page includes it
 
 ## Comments
 
@@ -21,3 +21,5 @@
 4. Push to main (or re-run the latest workflow). The deploy step rebuilds with the token after the tests pass.
 
 Until the variable is set, production builds have no beacon, as intended.
+
+**2026-11-08:** Kishor added the hostname in Cloudflare Web Analytics (JS snippet, since the site isn't proxied through Cloudflare) and set the repository variable `CLOUDFLARE_ANALYTICS_TOKEN`. Cloudflare's current snippet loads the beacon with `type='module'`, so the build now does the same (337e19b). Deployed with 337e19b: the Work page, the Info page, all four Project pages and the not-found page each carry the beacon with a 32-character hex token, and the response sets no cookies. Open: whether visits show up in the Cloudflare dashboard was not checked here; the cookie-free check on the live site is header-only, while the test suite covers the beacon script itself running against the test build.
